@@ -70,7 +70,7 @@ function CartPage() {
             <div>
               <button
                 className="rounded-xl bg-gray-700 text-white px-4 py-2 "
-                onClick={() => router.push("/shipping")}
+                onClick={() => router.push("/login?redirect=/shipping")}
               >
                 Checkout
               </button>
