@@ -1,11 +1,12 @@
-import Layout from "../components/Layout";
-
 import { useContext } from "react";
-import { CartContext } from "../context/Cart";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-export default function CartPage() {
+import Layout from "../components/Layout";
+import { CartContext } from "../context/Cart";
+
+function CartPage() {
   const router = useRouter();
   const { state, dispatch } = useContext(CartContext);
 
@@ -43,8 +44,9 @@ export default function CartPage() {
                         <Image
                           src={item.image}
                           alt={item.title}
-                          width={50}
-                          height={50}
+                          width={70}
+                          height={70}
+                          className="p-2"
                         />
                         {item.title}
                       </span>
@@ -79,3 +81,4 @@ export default function CartPage() {
     </Layout>
   );
 }
+export default dynamic(() => Promise.resolve(CartPage), { ssr: false });

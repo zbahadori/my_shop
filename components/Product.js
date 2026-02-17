@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 function Product({ item }) {
   return (
@@ -26,4 +27,4 @@ function Product({ item }) {
   );
 }
 
-export default Product;
+export default dynamic(() => Promise.resolve(Product), { ssr: false });
