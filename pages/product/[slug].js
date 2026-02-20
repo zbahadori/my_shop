@@ -3,16 +3,13 @@ import { useContext } from "react";
 import Image from "next/image";
 
 import Layout from "../../components/Layout";
-import productItems from "../../data/products.json";
 import { CartContext } from "../../context/Cart";
+import db from "../../utils/db";
+import Product from "../../models/product";
 
-function ProductPage() {
+function ProductPage({ product }) {
   const { state, dispatch } = useContext(CartContext);
   const router = useRouter();
-  const { query } = useRouter();
-  const { slug } = query;
-
-  const product = productItems.find((pItem) => pItem.slug === slug);
 
   if (!product) {
     return <div>Product not found.</div>;
@@ -74,3 +71,16 @@ function ProductPage() {
 }
 
 export default ProductPage;
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+
+  const product = await Product.findOne({ slug }).lean();
+
+  return {
+    props: { product: product ? db.convertToObj(product) : null },
+  };
+}

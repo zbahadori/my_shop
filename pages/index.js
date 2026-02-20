@@ -1,14 +1,15 @@
 import Layout from "../components/Layout";
-import Product from "../components/Product";
+import ProductItem from "../components/ProductItem";
 
-import productItems from "../data/products.json";
+import db from "../utils/db";
+import Product from "../models/product";
 
-function Home() {
+function Home({ products }) {
   return (
     <Layout title="Home Page">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-3 lg:grid-cols-4">
-        {productItems.map((pItem) => (
-          <Product item={pItem} key={pItem.slug}></Product>
+        {products.map((pItem) => (
+          <ProductItem item={pItem} key={pItem.slug}></ProductItem>
         ))}
       </div>
     </Layout>
@@ -16,3 +17,11 @@ function Home() {
 }
 
 export default Home;
+
+export async function getServerSideProps() {
+  await db.connect();
+  const products = await Product.find().lean();
+  return {
+    props: { products: products.map(db.convertToObj) },
+  };
+}

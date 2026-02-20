@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-function Product({ item }) {
+function ProductItem({ item }) {
   return (
     <div className="bg-white rounded-xl mb-5 block">
       <Link href={`/product/${item.slug}`}>
@@ -27,4 +27,4 @@ function Product({ item }) {
   );
 }
 
-export default dynamic(() => Promise.resolve(Product), { ssr: false });
+export default dynamic(() => Promise.resolve(ProductItem), { ssr: false });
