@@ -1,7 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import Cookies from "js-cookie";
+
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 import { CartContext } from "../context/Cart";
 
@@ -13,6 +16,12 @@ function Layout({ title, children }) {
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((acc, cur) => acc + cur.qty, 0));
   }, [cart.cartItems]);
+
+  function logoutHandler() {
+    Cookies.remove();
+
+    signOut({ callbackUrl: "/login" });
+  }
 
   return (
     <>
@@ -37,7 +46,37 @@ function Layout({ title, children }) {
               {state === "loading" ? (
                 <div>Loading</div>
               ) : session?.user ? (
-                session.user.name
+                <Menu as="div" className="relative inline-block  ml-2 ">
+                  <MenuButton className="text-blue-500 hover:text-blue-700 font-medium py-2 px-3 rounded-md transition duration-150 ease-in-out">
+                    {session.user.name}
+                  </MenuButton>
+                  <MenuItems
+                    anchor="bottom"
+                    className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200"
+                  >
+                    <MenuItem>
+                      <Link
+                        href="/profile"
+                        className={`${
+                          focus ? "bg-gray-100" : ""
+                        } block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out`}
+                      >
+                        Profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="#"
+                        onClick={logoutHandler}
+                        className={`${
+                          focus ? "bg-gray-100" : ""
+                        } block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out`}
+                      >
+                        Logout
+                      </a>
+                    </MenuItem>
+                  </MenuItems>
+                </Menu>
               ) : (
                 <Link href="/login" className="p-2 text-gray-700">
                   Login
