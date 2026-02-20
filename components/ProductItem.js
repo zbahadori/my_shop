@@ -1,16 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 
-function ProductItem({ item }) {
+function ProductItem({ item, addToCart }) {
   return (
     <div className="bg-white rounded-xl mb-5 block">
       <Link href={`/product/${item.slug}`}>
         <Image
           src={item.image}
-          width={1}
-          height={1}
           className="rounded-t-xl"
+          width={300}
+          height={300}
           alt={item.title}
         />
       </Link>
@@ -19,7 +18,10 @@ function ProductItem({ item }) {
           <h2 className="text-lg">{item.title}</h2>
         </Link>
         <p className="p-2">{item.price}</p>
-        <button className="rounded-xl bg-gray-700 text-white px-4 py-2">
+        <button
+          onClick={() => addToCart(item)}
+          className="rounded-xl bg-gray-700 text-white px-4 py-2"
+        >
           Add to Cart
         </button>
       </div>
@@ -27,4 +29,4 @@ function ProductItem({ item }) {
   );
 }
 
-export default dynamic(() => Promise.resolve(ProductItem), { ssr: false });
+export default ProductItem;

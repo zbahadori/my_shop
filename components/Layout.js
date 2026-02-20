@@ -7,6 +7,8 @@ import Cookies from "js-cookie";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 import { CartContext } from "../context/Cart";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Layout({ title, children }) {
   const { status, data: session } = useSession();
@@ -28,6 +30,7 @@ function Layout({ title, children }) {
       <Head>
         <title>{`${title} - Shopping`}</title>
       </Head>
+      <ToastContainer position={"bottom-right"} limit={1} />
       <div className="flex min-h-screen flex-col justify-between">
         <header>
           <nav className="flex h-14 px-8 justify-between items-center border-b-4 bg-white">
