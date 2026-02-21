@@ -40,11 +40,9 @@ function Layout({ title, children }) {
             <div>
               <Link href="/cart" className="p-2 text-gray-700">
                 Cart
-                {cart.cartItems.length > 0 && (
-                  <span className="ml-1 rounded-xl bg-gray-200 px-2 py-1 text-xs font-bold">
-                    {cartItemsCount}
-                  </span>
-                )}
+                <span className="ml-1 rounded-xl bg-gray-200 px-2 py-1 text-xs font-bold">
+                  {cartItemsCount}
+                </span>
               </Link>
               {state === "loading" ? (
                 <div>Loading</div>
