@@ -1,13 +1,15 @@
 import { useEffect } from "react";
+
 import Link from "next/link";
+import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 
 import Layout from "../components/Layout";
-import { useRouter } from "next/router";
 
-export default function LoginPage() {
+function LoginPage() {
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -90,3 +92,6 @@ export default function LoginPage() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(LoginPage), { ssr: false });
+// export default LoginPage;
