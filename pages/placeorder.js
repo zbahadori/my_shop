@@ -7,6 +7,7 @@ import { CartContext } from "../context/Cart";
 
 import Layout from "../components/Layout";
 import CheckoutWizard from "../components/CheckoutWizard";
+import Shipping from "./shipping";
 
 function PlaceOrderPage() {
   const router = useRouter();
@@ -22,7 +23,7 @@ function PlaceOrderPage() {
       0,
     );
 
-    await fetch("/api/orders", {
+    const response = await fetch("/api/orders", {
       method: "POST",
       body: JSON.stringify({
         orderItems: cartItems,
@@ -33,7 +34,9 @@ function PlaceOrderPage() {
       headers: { "Content-Type": "application/json" },
     });
 
-    router.push("/order-completed");
+    const data = await response.json();
+    console.log({ data });
+    // router.push("/order-completed");
   }
 
   return (
@@ -78,7 +81,12 @@ function PlaceOrderPage() {
                   <tr key={item._id} className="border-b">
                     <td>
                       <div className="flex items-center">
-                        <Image src={item.image} width={50} height={50} />
+                        <Image
+                          src={item.image}
+                          width={50}
+                          height={50}
+                          alt={item.title}
+                        />
                         &nbsp;
                         {item.title}
                       </div>

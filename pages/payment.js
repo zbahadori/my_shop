@@ -22,6 +22,7 @@ export default function PaymentPage() {
 
     if (!selectedPaymentMethod) {
       alert("please select payment method");
+      return;
     }
     dispatch({ type: "SAVE_PAYMENT_METHOD", payload: selectedPaymentMethod });
 

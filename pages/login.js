@@ -43,10 +43,7 @@ function LoginPage() {
   }
   return (
     <Layout title="Login">
-      <form
-        className="mx-auto max-w-screen-md"
-        onSubmit={handleSubmit(SubmitHandler)}
-      >
+      <form className="mx-auto max-w-lg" onSubmit={handleSubmit(SubmitHandler)}>
         <h2 className="mb-4 text-xl">Login</h2>
         <div className="mb-4">
           <input

@@ -44,7 +44,7 @@ function Layout({ title, children }) {
                   {cartItemsCount}
                 </span>
               </Link>
-              {state === "loading" ? (
+              {status === "loading" ? (
                 <div>Loading</div>
               ) : session?.user ? (
                 <Menu as="div" className="relative inline-block  ml-2 ">
@@ -63,6 +63,16 @@ function Layout({ title, children }) {
                         } block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out`}
                       >
                         Profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        href="/order-history"
+                        className={`${
+                          focus ? "bg-gray-100" : ""
+                        } block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 transition duration-150 ease-in-out`}
+                      >
+                        Order History
                       </Link>
                     </MenuItem>
                     <MenuItem>
